@@ -15,8 +15,20 @@ open import Relation.Binary.PropositionalEquality
 open import Data.Rational.Core
 open import Data.Rational.Make
 
+{-
+
 make-lemma : (p₁ p₂ : ℤ) (q₁ q₂ : ℕ) → p₁ ≡ p₂ → q₁ ≡ q₂ → (q₁≢0 : q₁ ≢ 0) (q₂≢0 : q₂ ≢ 0)
            → make p₁ q₁ q₁≢0 ≡ make p₂ q₂ q₂≢0
 make-lemma p .p q .q refl refl q₁≢0 q₂≢0 with ∣ p ∣ | q | gcd′ ∣ p ∣ q
-... | .(q₁ *ℕ g) | .(q₂ *ℕ g) | g , gcd-* q₁ q₂ c = refl 
+... | .(q₁ *ℕ g) | .(q₂ *ℕ g) | g , gcd-* q₁ q₂ c = refl
+
+-}
+
+make-lemma⁺ : {p₁ p₂ : ℤ} {q₁ q₂ : ℕ}
+            → p₁ ≡ p₂ → q₁ ≡ q₂
+            → make⁺ p₁ q₁ ≡ make⁺ p₂ q₂ 
+make-lemma⁺ = cong₂ make⁺
+
+
+
 

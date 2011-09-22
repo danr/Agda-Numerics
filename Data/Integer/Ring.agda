@@ -70,7 +70,6 @@ private
       n*1≡n (+ suc n) = cong (+_ ∘ suc) (trans (N.*-comm n 1) (N.+-comm n 0))
 
 
-
 isCommutativeRing : IsCommutativeRing _≡_ _+_ _*_ -_ (+ 0) (+ 1)
 isCommutativeRing = record
   { isRing = record 
@@ -100,6 +99,18 @@ isCommutativeRing = record
     ; distrib = distrib
     }
   ; *-comm = *-comm
+  }
+
+commutativeRing : CommutativeRing _ _ 
+commutativeRing = record
+  { Carrier = ℤ
+  ; _≈_ = _≡_
+  ; _+_ = _+_
+  ; _*_ = _*_
+  ; -_ = -_
+  ; 0# = + 0
+  ; 1# = + 1
+  ; isCommutativeRing = isCommutativeRing
   }
 
 
