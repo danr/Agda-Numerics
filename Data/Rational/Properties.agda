@@ -40,6 +40,7 @@ module ℤ-prop where
     q≡ : pred (q₁ *ℕ q₂) ≡ pred (q₂ *ℕ q₁)
     q≡ = cong pred (ℕ-prop.*-comm q₁ q₂)
 
+<<<<<<< HEAD
 -- ℚ+assoc : Associative _+_
 -- ℚ+assoc (p₁ / q₁-1 [ _ ]) (p₂ / q₂-1 [ _ ]) (p₃ / q₃-1 [ _ ]) = {!!}
 
@@ -48,3 +49,7 @@ module ℤ-prop where
 -- let p₁₂/q₁2 = (p₁/q₁ + p₂/q₂)
 --
 -- shorten (a +′ b) = shorten a + shorten b
+=======
+ℚ+assoc : Associative _+_
+ℚ+assoc (p₁ / q₁-1 [ _ ]) (p₂ / q₂-1 [ _ ]) (p₃ / q₃-1 [ _ ]) = {!!}
+>>>>>>> fabf7eae9843f76711ee78d591aa1f15742bcc1f
