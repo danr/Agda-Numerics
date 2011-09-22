@@ -95,10 +95,10 @@ open ≡-Reasoning
   where
     right : RightIdentity #1 _*_
     right x = begin
-        x * #1 ≡⟨ cong₂ _*_ (≡-sym (inv x)) (≡-sym (inv #1) ≡-trans ≈-cong (1-inject)) ⟩
+        x * #1                           ≡⟨ cong₂ _*_ (≡-sym (inv x)) (≡-sym (inv #1) ≡-trans ≈-cong (1-inject)) ⟩
         shorten (inject x) * shorten ⟨1⟩ ≡⟨ *-shorten (inject x) ⟨1⟩ ⟩
-        shorten (inject x ⟨*⟩ ⟨1⟩) ≡⟨ ≈-cong (proj₂ *-identity (inject x)) ⟩
-        shorten (inject x) ≡⟨ inv x ⟩
+        shorten (inject x ⟨*⟩ ⟨1⟩)       ≡⟨ ≈-cong (proj₂ *-identity (inject x)) ⟩
+        shorten (inject x)               ≡⟨ inv x ⟩
         x
       ∎
       
