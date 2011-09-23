@@ -1,8 +1,7 @@
 {-# OPTIONS --universe-polymorphism #-}
 open import Relation.Binary
--- open import Function.Properties.Core
 
-module Data.HomomorphicRepresentations
+module Algebra.HomomorphicRepresentations
        {i j}
        (U : Set i)           -- the "desired" representation, yet without properties
        (⟨U⟩ : Set j)         -- the "alternative" representation, with properties
