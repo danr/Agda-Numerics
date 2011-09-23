@@ -53,11 +53,11 @@ module Semigroups
       +-assoc : Associative _+_
       +-assoc x y z = begin
           (x + y) + z                                                    ≈⟨ (inv x ⟨ +-cong ⟩ inv y) ⟨ +-cong ⟩ inv z ⟩
-          (extract (inject x) + extract (inject y)) + extract (inject z) ≈⟨ ≈-sym (+-extract (inject x) (inject y)) ⟨ +-cong ⟩ ≈-refl ⟩
-          extract (inject x +′ inject y) + extract (inject z)            ≈⟨ ≈-sym (+-extract ((inject x +′ inject y)) ((inject z))) ⟩
-          extract ((inject x +′ inject y) +′ inject z)                   ≈⟨ resp (assoc ((inject x)) ((inject y)) ((inject z))) ⟩
-          extract (inject x +′ (inject y +′ inject z))                   ≈⟨ +-extract (inject x) (inject y +′ inject z) ⟩
-          extract (inject x) + extract (inject y +′ inject z)            ≈⟨ ≈-refl ⟨ +-cong ⟩ +-extract ((inject y)) ((inject z)) ⟩
+          (extract (inject x) + extract (inject y)) + extract (inject z) ≈⟨ ≈-sym (+-extract _ _) ⟨ +-cong ⟩ ≈-refl ⟩
+          extract (inject x +′ inject y) + extract (inject z)            ≈⟨ ≈-sym (+-extract _ _) ⟩
+          extract ((inject x +′ inject y) +′ inject z)                   ≈⟨ resp (assoc _ _ _) ⟩
+          extract (inject x +′ (inject y +′ inject z))                   ≈⟨ +-extract _ _ ⟩
+          extract (inject x) + extract (inject y +′ inject z)            ≈⟨ ≈-refl ⟨ +-cong ⟩ +-extract _ _ ⟩
           extract (inject x) + (extract (inject y) + extract (inject z)) ≈⟨ ≈-sym (inv x ⟨ +-cong ⟩ (inv y ⟨ +-cong ⟩ inv z)) ⟩
           x + (y + z)
         ∎
@@ -75,18 +75,18 @@ module Semigroups
         open IsMonoid isMonoid
         left : LeftIdentity #0 _+_
         left x = begin
-            #0 + x                           ≈⟨ ≈-sym (0-extract) ⟨ +-cong ⟩ inv x ⟩
-            extract ⟨0⟩ + extract (inject x) ≈⟨ ≈-sym (+-extract ⟨0⟩ ((inject x))) ⟩
-            extract (⟨0⟩ +′ inject x)        ≈⟨ resp (proj₁ identity (inject x)) ⟩
+            #0 + x                           ≈⟨ ≈-sym 0-extract ⟨ +-cong ⟩ inv x ⟩
+            extract ⟨0⟩ + extract (inject x) ≈⟨ ≈-sym (+-extract _ _) ⟩
+            extract (⟨0⟩ +′ inject x)        ≈⟨ resp (proj₁ identity _) ⟩
             extract (inject x)               ≈⟨ ≈-sym (inv x) ⟩
             x
           ∎
 
         right : RightIdentity #0 _+_
         right x = begin
-            x + #0                           ≈⟨ inv x ⟨ +-cong ⟩ ≈-sym (0-extract) ⟩
-            extract (inject x) + extract ⟨0⟩ ≈⟨ ≈-sym (+-extract (inject x) ⟨0⟩) ⟩
-            extract (inject x +′ ⟨0⟩)        ≈⟨ resp (proj₂ identity (inject x)) ⟩
+            x + #0                           ≈⟨ inv x ⟨ +-cong ⟩ ≈-sym 0-extract ⟩
+            extract (inject x) + extract ⟨0⟩ ≈⟨ ≈-sym (+-extract _ _) ⟩
+            extract (inject x +′ ⟨0⟩)        ≈⟨ resp (proj₂ identity _) ⟩
             extract (inject x)               ≈⟨ ≈-sym (inv x) ⟩
             x
           ∎ 
@@ -104,9 +104,9 @@ module Semigroups
         +-comm : Commutative _+_
         +-comm x y = begin
             x + y                                   ≈⟨ +-cong (inv x) (inv y) ⟩
-            extract (inject x) + extract (inject y) ≈⟨ ≈-sym (+-extract (inject x) (inject y) ) ⟩
-            extract (inject x +′ inject y)          ≈⟨ resp (comm ((inject x)) ((inject y))) ⟩
-            extract (inject y +′ inject x)          ≈⟨ +-extract (inject y) (inject x) ⟩
+            extract (inject x) + extract (inject y) ≈⟨ ≈-sym (+-extract _ _) ⟩
+            extract (inject x +′ inject y)          ≈⟨ resp (comm _ _) ⟩
+            extract (inject y +′ inject x)          ≈⟨ +-extract _ _ ⟩
             extract (inject y) + extract (inject x) ≈⟨ ≈-sym (+-cong (inv y) (inv x)) ⟩
             y + x
           ∎
@@ -127,23 +127,22 @@ module Semigroups
           left : LeftInverse #0 -_ _+_
           left x = begin
               (- x) + x                                   ≈⟨ neg-cong (inv x) ⟨ +-cong ⟩ inv x ⟩
-              (- extract (inject x)) + extract (inject x) ≈⟨ ≈-sym (neg-extract (inject x)) ⟨ +-cong ⟩ ≈-refl ⟩
-              extract (-′ inject x) + extract (inject x)  ≈⟨ ≈-sym (+-extract ((-′ inject x)) ((inject x))) ⟩
-              extract ((-′ inject x) +′ inject x)         ≈⟨ resp (proj₁ inverse (inject x)) ⟩
-              extract ⟨0⟩ ≈⟨ 0-extract ⟩
+              (- extract (inject x)) + extract (inject x) ≈⟨ ≈-sym (neg-extract _) ⟨ +-cong ⟩ ≈-refl ⟩
+              extract (-′ inject x) + extract (inject x)  ≈⟨ ≈-sym (+-extract _ _) ⟩
+              extract ((-′ inject x) +′ inject x)         ≈⟨ resp (proj₁ inverse _) ⟩
+              extract ⟨0⟩                                 ≈⟨ 0-extract ⟩
               #0
             ∎
             
           right : RightInverse #0 -_ _+_
           right x = begin
               x + (- x)                                   ≈⟨ inv x ⟨ +-cong ⟩ neg-cong (inv x) ⟩
-              extract (inject x) + (- extract (inject x)) ≈⟨ ≈-sym (≈-refl ⟨ +-cong ⟩ neg-extract ((inject x))) ⟩
-              extract (inject x) + extract (-′ inject x)  ≈⟨ ≈-sym (+-extract ((inject x)) ((-′ inject x))) ⟩
-              extract (inject x +′ (-′ inject x))         ≈⟨ resp (proj₂ inverse ((inject x))) ⟩
+              extract (inject x) + (- extract (inject x)) ≈⟨ ≈-sym (≈-refl ⟨ +-cong ⟩ neg-extract _) ⟩
+              extract (inject x) + extract (-′ inject x)  ≈⟨ ≈-sym (+-extract _ _) ⟩
+              extract (inject x +′ (-′ inject x))         ≈⟨ resp (proj₂ inverse _) ⟩
               extract ⟨0⟩                                 ≈⟨ 0-extract ⟩
               #0
             ∎
-
             
       AbelianGroupRepr : IsAbelianGroup _≈′_ _+′_ ⟨0⟩ -′_ → IsAbelianGroup _≈_ _+_ #0 -_
       AbelianGroupRepr isAbelianGroup = record
@@ -158,8 +157,6 @@ module Semigroups
   open Monoids public
   
 open Semigroups public
-
-{-
 
 -- TODO : Investigate if this is better with records          
 module Rings 
@@ -187,18 +184,45 @@ module Rings
       ; *-isMonoid = MonoidRepr _*_ _*′_ *-extract *-cong
                                  #1 ⟨1⟩ 1-extract
                                  *-isMonoid
-      ; distrib = {!!}
+      ; distrib = left , right
       }
     where
       open IsRing isRing
 
       left : _*_ DistributesOverˡ _+_
       left x y z = begin
-          x * (y + z) ≈⟨ {!!} ⟩
-          {!!} ≈⟨ {!!} ⟩
-          {!!} ≈⟨ {!!} ⟩
-          {!!} ≈⟨ {!!} ⟩
-          {!!} ≈⟨ {!!} ⟩
+          x * (y + z)                                                     ≈⟨ inv x ⟨ *-cong ⟩ (inv y ⟨ +-cong ⟩ inv z) ⟩
+          extract (inject x) * (extract (inject y) + extract (inject z))  ≈⟨ ≈-refl ⟨ *-cong ⟩ ≈-sym (+-extract _ _) ⟩
+          extract (inject x) * extract (inject y +′ inject z)             ≈⟨ ≈-sym (*-extract _ _) ⟩
+          extract (inject x *′ (inject y +′ inject z))                    ≈⟨ resp (proj₁ distrib _ _ _) ⟩
+          extract ((inject x *′ inject y) +′ (inject x *′ inject z))      ≈⟨ +-extract _ _ ⟩
+          extract (inject x *′ inject y) + extract (inject x *′ inject z) ≈⟨ *-extract _ _ ⟨ +-cong ⟩ *-extract _ _ ⟩
+          (extract (inject x) * extract (inject y)) +
+            (extract (inject x) * extract (inject z))                     ≈⟨ ≈-sym ((inv x ⟨ *-cong ⟩ inv y) ⟨ +-cong ⟩ (inv x ⟨ *-cong ⟩ inv z)) ⟩
           (x * y) + (x * z)
         ∎
--}
+
+      right : _*_ DistributesOverʳ _+_
+      right x y z = begin
+          (y + z) * x                                                     ≈⟨ (inv y ⟨ +-cong ⟩ inv z) ⟨ *-cong ⟩ inv x ⟩
+          (extract (inject y) + extract (inject z)) * extract (inject x)  ≈⟨ ≈-sym (+-extract _ _) ⟨ *-cong ⟩ ≈-refl ⟩
+          extract (inject y +′ inject z) * extract (inject x)             ≈⟨ ≈-sym (*-extract _ _) ⟩
+          extract ((inject y +′ inject z) *′ inject x)                    ≈⟨ resp (proj₂ distrib _ _ _) ⟩
+          extract ((inject y *′ inject x) +′ (inject z *′ inject x))      ≈⟨ +-extract _ _ ⟩
+          extract (inject y *′ inject x) + extract (inject z *′ inject x) ≈⟨ *-extract _ _ ⟨ +-cong ⟩ *-extract _ _ ⟩
+          (extract (inject y) * extract (inject x)) +
+            (extract (inject z) * extract (inject x))                     ≈⟨ ≈-sym ((inv y ⟨ *-cong ⟩ inv x) ⟨ +-cong ⟩ (inv z ⟨ *-cong ⟩ inv x)) ⟩
+          (y * x) + (z * x)
+        ∎
+     
+  CommutativeRingRepr : IsCommutativeRing _≈′_ _+′_ _*′_ -′_ ⟨0⟩ ⟨1⟩ → IsCommutativeRing _≈_ _+_ _*_ -_ #0 #1
+  CommutativeRingRepr isCommutativeRing = record
+      { isRing = RingRepr isRing
+      ; *-comm = IsCommutativeMonoid.comm
+                   (CommutativeMonoidRepr _*_ _*′_ *-extract *-cong
+                                          #1 ⟨1⟩ 1-extract
+                                          *-isCommutativeMonoid)
+      }
+    where
+      open IsCommutativeRing isCommutativeRing
+      
